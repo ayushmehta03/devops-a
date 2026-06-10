@@ -1,0 +1,1 @@
+# automation with py script using boto 3 module for aws 
