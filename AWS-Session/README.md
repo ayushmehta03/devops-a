@@ -1,72 +1,69 @@
 # Deploying a Node Js Application on AWS EC2
 
-### Testing the project locally
+# easy steps to follow for deployment
 
-1. Clone this project
-```
-git clone https://github.com/verma-kunal/AWS-Session.git
-```
-2. Setup the following environment variables - `(.env)` file
-```
-DOMAIN= ""
-PORT=3000
-STATIC_DIR="./client"
+create ec2 instance on aws
 
-PUBLISHABLE_KEY=""
-SECRET_KEY=""
-```
-3. Initialise and start the project
-```
+download the pem key 
+
+add the configuration in the terminal
+
+#cmd
+
+chmod 400 key_path
+
+ssh -i key_path machine_details@public_ip_v4 address
+
+#setup git
+
+sudo apt update if ubunutu machine
+
+sudo apt install git -y
+
+
+#install node js and npm + verify
+
+sudo apt install node
+
+node --version
+
+
+sudo apt install npm
+
+npm --version
+
+#clone the repo
+
+git clone paste the link 
+
+
+#move to the repo path
+
+cd folder_name 
+
+
+#install dependencies
+
 npm install
-npm run start
-```
 
-### Set up an AWS EC2 instance
 
-1. Create an IAM user & login to your AWS Console
-    - Access Type - Password
-    - Permissions - Admin
-2. Create an EC2 instance
-    - Select an OS image - Ubuntu
-    - Create a new key pair & download `.pem` file
-    - Instance type - t2.micro
-3. Connecting to the instance using ssh
-```
-ssh -i instance.pem ubunutu@<IP_ADDRESS>
-```
+#aws console steps
 
-### Configuring Ubuntu on remote VM
+go to aws ec2 dashboard
 
-1. Updating the outdated packages and dependencies
-```
-sudo apt update
-```
-3. Install Git - [Guide by DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-install-git-on-ubuntu-22-04) 
-4. Configure Node.js and `npm` - [Guide by DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-22-04)
+security groups 
 
-### Deploying the project on AWS
+add security for the port on which app is running eg.3000
 
-1. Clone this project in the remote VM
-```
-git clone https://github.com/verma-kunal/AWS-Session.git
-```
-2. Setup the following environment variables - `(.env)` file
-```
-DOMAIN= ""
-PORT=3000
-STATIC_DIR="./client"
+save it 
 
-PUBLISHABLE_KEY=""
-SECRET_KEY=""
-```
-> For this project, we'll have to set up an [Elastic IP Address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) for our EC2 & that would be our `DOMAIN`
+#final step
 
-3. Initialise and start the project
-```
-npm install
-npm run start
-```
+take the public ipv4 address and allign it with the port
 
-> NOTE - We will have to edit the **inbound rules** in the security group of our EC2, in order to allow traffic from our particular port
+eg> public_ipv4:port_number
+
+done and dusted
+
 
 ### Project is deployed on AWS 🎉
