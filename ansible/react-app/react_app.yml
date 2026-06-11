@@ -1,0 +1,41 @@
+---
+- name: Install node, npm, git, clone repo and run the application
+  hosts: myserver
+
+  tasks:
+    - name: Install system dependencies (Node, NPM, Git)
+      apt:
+        name:
+          - nodejs
+          - npm
+          - git
+        state: present
+        update_cache: yes
+      become: true
+
+    - name: Clone git repository
+      git:
+        repo: "https://github.com/ayushmehta03/admin-dashboard"
+        dest: /opt/admin-dashboard
+        version: main
+      become: true
+
+    - name: Fix directory permissions for the ubuntu user
+      file:
+        path: /opt/admin-dashboard
+        owner: ubuntu
+        group: ubuntu
+        recurse: yes
+      become: true
+
+    - name: Install npm packages
+      command: npm install
+      args:
+        chdir: /opt/admin-dashboard
+
+    - name: Run development server
+      shell: nohup npm run dev -- --host > app.log 2>&1 &
+      args:
+        chdir: /opt/admin-dashboard
+      async: 10
+      poll: 0
